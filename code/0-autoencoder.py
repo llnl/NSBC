@@ -62,10 +62,10 @@ class Autoencoder(nn.Module):
             nn.Conv2d(4, 8, kernel_size=5),
             nn.ReLU(True),
             nn.Flatten(),
-            nn.Linear(3200, 30),
+            nn.Linear(3200, 50),
         )
         self.decoder = nn.Sequential(
-            nn.Linear(30, 400),
+            nn.Linear(50, 400),
             nn.ReLU(True),
             nn.Linear(400, 4000),
             nn.ReLU(True),
