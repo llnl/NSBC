@@ -98,33 +98,6 @@ ghg = np.zeros((365*150,1))
 for i in range (150):
     ghg[i*365:(i+1)*365,0] = all_ghg_annual[i]
 # step2.2 Latent space
-'''
-train_sim = np.load('./data/train_temp_e3sm_interp.npy')
-test_sim = np.load('./data/test_temp_e3sm_interp.npy')
-future_sim = np.load('./data/future_temp_e3sm_interp.npy')
-sim_all = np.concatenate((train_sim, test_sim, future_sim), axis=0)
-test_obs = sim_all
-test_obs = torch.from_numpy(np.expand_dims(test_obs, 1)).float()
-from tqdm import tqdm
-pred_y = np.zeros((test_obs.shape[0], 50))
-pred_y1 = np.zeros((test_obs.shape[0], test_obs.shape[1], test_obs.shape[2], test_obs.shape[3]))
-for index in tqdm(range(test_obs.shape[0])):
-    pred_y[index:index + 1, :] = model.encoder(test_obs[index:index + 1, :, :, :]).detach().cpu().numpy()
-X = pred_y
-train_obs = np.load('./data/train_temp_gfdl_interp.npy')
-test_obs = np.load('./data/test_temp_gfdl_interp.npy')
-future_obs = np.load('./data/future_temp_gfdl_interp.npy')
-obs_all = np.concatenate((train_obs, test_obs, future_obs), axis=0)
-test_obs = obs_all
-test_obs = torch.from_numpy(np.expand_dims(test_obs, 1)).float()
-from tqdm import tqdm
-pred_y = np.zeros((test_obs.shape[0], 50))
-for index in tqdm(range(test_obs.shape[0])):
-    pred_y[index:index + 1, :] = model.encoder(test_obs[index:index + 1, :, :, :]).detach().cpu().numpy()
-Y = pred_y
-np.save('/data/x_54750_50.npy',X)
-np.save('/data/y_54750_50.npy',Y)
-'''
 
 X = np.load('./data/x_54750_50.npy')
 
@@ -133,8 +106,8 @@ X = np.concatenate((X,ghg),axis=1)
 Y = np.load('./data/y_54750_50.npy')
 
 # step2.4 normalization
-X_min = np.nanmin(X,axis=0)
-X_max = np.nanmax(X,axis = 0)
+X_min = np.nanmin(X[0:365*72,:],axis=0)
+X_max = np.nanmax(X[0:365*72,:],axis = 0)
 Y_min = np.nanmin(Y[0:365*72,:],axis = 0)
 Y_max = np.nanmax(Y[0:365*72,:],axis = 0)*2
 X = (X-X_min)/(X_max - X_min)
