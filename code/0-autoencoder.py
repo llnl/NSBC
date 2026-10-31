@@ -25,7 +25,7 @@ test_obs = np.load('./data/test_temp_gfdl_interp.npy')
 future_obs = np.load('./data/future_temp_gfdl_interp.npy')
 obs_all = np.concatenate((train_obs, test_obs, future_obs), axis=0)
 
-train_len = 20000
+train_len = 26280
 sim_train = sim_all[0:train_len]
 sim_test = sim_all[train_len:]
 obs_train = obs_all[0:train_len]
