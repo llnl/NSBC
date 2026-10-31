@@ -164,7 +164,7 @@ train_y = torch.from_numpy(y_train).float()
 test_x = torch.from_numpy(x_test).float()
 test_y = torch.from_numpy(y_test).float()
 
-batch_size=100
+batch_size=365
 train = torch.utils.data.TensorDataset(train_x, train_y)
 test = torch.utils.data.TensorDataset(test_x, test_y)
 train_loader = torch.utils.data.DataLoader(train, batch_size=batch_size, shuffle=True)
